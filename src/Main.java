@@ -15,6 +15,7 @@ class Main {
             System.out.println("2 - Depositar");
             System.out.println("3 - Sacar");
             System.out.println("4 - Ver saldo");
+            System.out.println("5 - Transferir");
             System.out.println("0 - Sair");
 
             opcao = scan.nextInt();
@@ -67,10 +68,35 @@ class Main {
                         contaDep.exibirSaldo();
                     }
                     break;
+
+                case 5:
+                    System.out.print("Conta de origem: ");
+                    int origem = scan.nextInt();
+
+                    System.out.print("Conta de destino: ");
+                    int destino = scan.nextInt();
+
+                    Conta contaOrigem = banco.buscarConta(origem);
+                    Conta contaDestino = banco.buscarConta(destino);
+
+                    if (contaOrigem != null && contaDestino != null) {
+                        System.out.print("Valor da transferência: ");
+                        double valor = scan.nextDouble();
+
+                        contaOrigem.transferir(contaDestino, valor);
+                    } else {
+                        System.out.println("Conta não encontrada!");
+                    }
+                    if (origem == destino) {
+                        System.out.println("Não é possível transferir para a mesma conta.");
+
+                    }
+                    break;
             }
+
 
         } while (opcao != 0);
 
-        banco.salvarContas(); // 💾 salva ao sair
+        banco.salvarContas();
     }
 }

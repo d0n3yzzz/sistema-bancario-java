@@ -45,4 +45,19 @@ public class Conta {
     public void exibirSaldo() {
         System.out.println(titular + ", seu saldo é: R$ " + saldo);
     }
+
+    public void transferir(Conta destino, double valor) {
+        if (valor <= 0) {
+            System.out.println("Valor inválido.");
+            return;
+        }
+
+        if (this.saldo >= valor) {
+            this.saldo -= valor;
+            destino.depositar(valor);
+            System.out.println("Transferência realizada com sucesso!");
+        } else {
+            System.out.println("Saldo insuficiente!");
+        }
+    }
 }
